@@ -1,14 +1,31 @@
-var express = require('express');
-var conf=require('./config').conf;
-var request = require('request');
-var _=require("underscore");
 
 
-exports.configure =  function(config) {
-    conf.decodedTokenFieldName= config.decodedTokenFieldName || conf.decodedTokenFieldName;
-    conf.authoritationMicroservice.url=config.authoritationMicroserviceUrl || conf.authoritationMicroservice.url;
-    conf.authoritationMicroservice.access_token=config.access_token || conf.authoritationMicroservice.access_token;
-    conf.exampleUrl = config.exampleUrl || conf.exampleUrl;
-    conf.tokenFieldName= config.tokenFieldName || conf.tokenFieldName;
+
+
+exports.readProperties=function(path){
+    var config = require(path,nodeEnvKeys);
+    var async=require('async');
+    var argv = require('minimist')(process.argv.slice(2));
+
+    switch (process.env['NODE_ENV']) {
+        case 'dev':
+            conf = config.dev || config.production;
+            break;
+        case 'test':
+            conf = config.test || config.production;
+            break;
+        default:
+            conf = config.production;
+            break;
+    }
+
+
+
+    async.each(conf, function(param, callback) {
+        console.log('Processing Key ' + param);
+        if(argv[param])
+            conf[param]=argv[param];
+        callback();
+    });
+ return(conf);
 };
-

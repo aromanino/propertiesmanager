@@ -7,7 +7,7 @@ License - "MIT License"
 
 MIT License
 
-Copyright (c) 2016 aromanino gporruvecchio
+Copyright (c) 2016 aromanino
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -27,8 +27,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-Contributors
-------------
-
+Author
+------
 Alessandro Romanino ([a.romanino@gmail.com](mailto:a.romanino@gmail.com))
-Guido Porruvecchio ([guido.porruvecchio@gmail.com](mailto:guido.porruvecchio@gmail.com))
