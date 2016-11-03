@@ -3,7 +3,7 @@
 
 
 exports.readProperties=function(path){
-    var config = require(path,nodeEnvKeys);
+    var config = require(path);
     var async=require('async');
     var argv = require('minimist')(process.argv.slice(2));
 
