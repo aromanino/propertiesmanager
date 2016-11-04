@@ -40,7 +40,7 @@ Next an example of empty  mandatory file properties
 ```javascript
 {
     "production":{  
-    
+            "content":"...."   
     }
 }
 ```
