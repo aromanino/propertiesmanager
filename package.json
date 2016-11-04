@@ -9,7 +9,7 @@
     "morgan": "~1.3.0",
     "serve-favicon": "~2.1.3"
   },
-  "description": "License - \"MIT License\" -----------------------",
+  "description": "This module deals with the management of  configuration file of properties used for give a simple and consistent configuration interface to your application";
   "main": "index.js",
   "devDependencies": {},
   "scripts": {

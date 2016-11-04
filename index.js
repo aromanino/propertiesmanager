@@ -1,4 +1,4 @@
-var config = require("../.././config/properties.json");
+var config = require("../.././config/default.json");
 var async=require('async');
 var argv = require('minimist')(process.argv.slice(2));
 var conf;
@@ -30,4 +30,4 @@ async.eachOf(conf, function(param,index,callback) {
 
 
 exports.conf=conf;
-exports.conf=config;
+exports.config=config;
