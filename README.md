@@ -82,7 +82,7 @@ Next an example of properties file with env and test properties defined
        "properties_One":"Test Development",
        "DevLogs":{
            "path":"/logs/log.xml",
-           "format":"xml
+           "format":"xml"
        }  
     }
 }
