@@ -166,6 +166,8 @@ $ NODE_ENV=dev node bin/www --properties_One="Override_TestOne"
 ``` 
 
 
+For other information about passing parameter see `https://www.npmjs.com/package/minimist`
+
 ## <a name="examples"></a>`Examples`
 
 ### File Properties creation
@@ -198,7 +200,7 @@ Populate file properties contents like this:
        "properties_One":"Test Development",
        "DevLogs":{
            "path":"/logs/log.xml",
-           "format":"xml
+           "format":"xml"
        }  
     }
 }
@@ -271,7 +273,7 @@ $ NODE_ENV=test npm start
            "Obj_One":1,
            "Obj_Two":2
        }  
-    },
+    }
 ```
 
 
@@ -286,7 +288,7 @@ $ NODE_ENV=dev npm start -- --properties_One="Override_TestOne"
            "Obj_One":1,
            "Obj_Two":2
        }  
-    },
+    }
 ```
 
 
