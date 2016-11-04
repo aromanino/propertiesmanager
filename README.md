@@ -38,14 +38,16 @@ Other not mandatory dictionary should be called "dev" for development properties
 
 Next an example of empty  mandatory file properties
 ```javascript
-    "production":{
+{
+    "production":{  
     
     }
-});
+}
 ```
 
 Next an example of not empty  mandatory file properties
 ```javascript
+{
     "production":{
         "properties_One":"One",
         "properties_Two":"Two",
@@ -54,7 +56,7 @@ Next an example of not empty  mandatory file properties
             "Obj_Two":2
         }    
     }
-});
+}
 ```
 
 
@@ -104,12 +106,12 @@ This properties can be overridden and extended by command line parameters.
 seeing that the file properties can have three different running configuration (production, dev, test),
 to load a particular configuration you can get it setting  NODE_ENV environment variable.
 ```javascript
-{
+
    var propertiesmanager = require('propertiesmanager');
    
    // print the loaded properties dictionary
    console.log(propertiesmanager);   
-}
+
 ```
 
 
@@ -204,13 +206,13 @@ Populate file properties contents like this:
 
 Code example that prints properties
 ```javascript
-{
+
    var propertiesmanager = require('propertiesmanager');
    
    // print the loaded properties dictionary
    console.log("########### Readed Properties ###########" );
    console.log(propertiesmanager);   
-}
+
 ```
 
 Running your app in default mode load production properties from default.json :
