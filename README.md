@@ -181,13 +181,12 @@ To override leaves parameters in tree structure to overrun branches, use doted("
  }
  ```
 
-To override "Obj_One" use doted syntax " --Objectproperties **.** Obj_One="Override_Obj_One" "like bellow:
+To override "Obj_One" use doted syntax " --Objectproperties **.** Obj_One="Override_Obj_One" "like bellow :
 
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev node bin/www --Objectproperties.Obj_One="Override_Obj_One"
 ``` 
-
 
 
 For other information about passing parameter see `https://www.npmjs.com/package/minimist`
