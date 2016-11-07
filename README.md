@@ -165,7 +165,7 @@ $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev node bin/www --properties_One="Override_TestOne"
 ``` 
 
-To override parameters in a tree structure(overrun branches to reach leaves), use doted(".") syntax like in this example:
+To override parameters in a tree structure(overrun branches to reach leaves), use doted(".") syntax. For example:
  ```javascript
  
   // We Want Override Obj_One
