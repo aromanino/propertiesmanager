@@ -1,5 +1,6 @@
 var config = require("../.././config/default.json");
 var async=require('async');
+var _=require('underscore');
 var argv = require('minimist')(process.argv.slice(2));
 var conf;
 var key;
@@ -18,44 +19,38 @@ switch (process.env['NODE_ENV']) {
         break;
 }
 
+delete argv["_"];
 
-var args={};
+async.eachOf(conf, function(param,index,callback) {
+    console.log('Processing Key ' + index);
 
-async.eachOf(argv,function(value,keyP,callb){
-    var Keys=keyP.split(".");
-    var mainKey;
+    var tmpKey;
+    var tmpObj;
+    var argvTmp;
+    var oldArgvK;
 
-    mainKey=Keys[0];
-    args[mainKey]={"value":value, "subKey":[]};
-
-    for(var index=1;index < Keys.length; ++ index){
-        args[mainKey].subKey=args[mainKey].subKey.push(Keys[index]);
-    }
-
-    callb();
-
-},function(err){
-
-    console.dir(args);
-    async.eachOf(conf, function(param,index,callback) {
-        console.log('Processing Key ' + index);
-
-        var tmpKey;
-        var tmpObj;
-
-        if(args[index]) {
-            tmpObj=conf;
-            tmpKey=index;
-            for(var counter=0;counter< args[index].subKey.length;++counter){
-                tmpObj=tmpObj[tmpKey];
-                tmpKey=args[index].subKey[counter];
+    if(argv[index]) {
+        tmpObj=conf;
+        tmpKey=index;
+        argvTmp=argv[index];
+        while((typeof (argvTmp)=="object")){
+            oldArgvK=_.keys(argvTmp)[0];
+            argvTmp=argvTmp[oldArgvK];
+            if(tmpObj[tmpKey]) {
+                tmpObj = tmpObj[tmpKey];
+                tmpKey=oldArgvK;
             }
-            tmpObj[tmpKey] = args[index].value;
+            else
+                argvTmp="exit"; // to force exit due no use break
+
         }
-        callback();
-    },function(err){
-        config[key]=conf;
-    });
+        if(tmpObj[tmpKey])
+            tmpObj[tmpKey] = argvTmp;
+
+    }
+    callback();
+},function(err){
+    config[key]=conf;
 });
 
 
