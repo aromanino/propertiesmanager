@@ -165,6 +165,30 @@ $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev node bin/www --properties_One="Override_TestOne"
 ``` 
 
+To override leaves parameters in tree structure to overrun branches, use doted(".") syntax like in this example:
+ ```javascript
+ 
+  // We Want Override Obj_One
+ {
+     "production":{
+         "properties_One":"One",
+         "properties_Two":"Two",
+         "Objectproperties":{
+             "Obj_One":1,
+             "Obj_Two":2
+         }    
+     }     
+ }
+ ```
+
+To override "Obj_One" use doted syntax " --Objectproperties**.**Obj_One="Override_Obj_One" "like bellow:
+
+```shell
+$ cd "YOUR_APPLICATION_HOME_DIRECTORY"
+$ NODE_ENV=dev node bin/www --Objectproperties.Obj_One="Override_Obj_One"
+``` 
+
+
 
 For other information about passing parameter see `https://www.npmjs.com/package/minimist`
 
