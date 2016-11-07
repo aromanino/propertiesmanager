@@ -1,6 +1,6 @@
 {
   "name": "propertiesmanager",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "dependencies": {
     "async": "^2.1.2",
     "debug": "~2.0.0",
