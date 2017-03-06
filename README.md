@@ -4,7 +4,7 @@ interface to your application. The package lets you to define a set of parameter
 File properties are stored in folder config in a file named properties.json within your application home directory(.../config/properties.json).
 The package use **npm minimist** so your properties can be overridden and extended command line parameters.
 
-
+[![NPM](https://nodei.co/npm/propertiesmanager.png?downloads=true&downloadRank=true&stars=true)![NPM](https://nodei.co/npm-dl/propertiesmanager.png?months=6&height=3)](https://nodei.co/npm/propertiesmanager/)
 
  * [Installation](#installation) 
  * [File properties creation](#creation)
