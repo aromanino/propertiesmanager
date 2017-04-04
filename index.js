@@ -45,7 +45,7 @@ async.eachOf(conf, function(param,index,callback) {
                 argvTmp="exit"; // to force exit due to no use break
 
         }
-        if(_.has(tmpObj,tmpKey)){
+        if(_.has(tmpObj,tmpKey))
             tmpObj[tmpKey] = argvTmp;
 
     }
