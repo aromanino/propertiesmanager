@@ -107,7 +107,7 @@ seeing that the file properties can have three different running configuration (
 to load a particular configuration you can get it setting  NODE_ENV environment variable.
 ```javascript
 
-   var propertiesmanager = require('propertiesmanager');
+   var propertiesmanager = require('propertiesmanager').conf;
    
    // print the loaded properties dictionary
    console.log(propertiesmanager);   
@@ -232,7 +232,7 @@ Populate file properties contents like this:
 Code example that prints properties
 ```javascript
 
-   var propertiesmanager = require('propertiesmanager');
+   var propertiesmanager = require('propertiesmanager').conf;
    
    // print the loaded properties dictionary
    console.log("########### Readed Properties ###########" );

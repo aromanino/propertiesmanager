@@ -57,5 +57,5 @@ async.eachOf(conf, function(param,index,callback) {
 
 
 
-exports=conf;
+exports.conf=conf;
 //exports.config=config;
