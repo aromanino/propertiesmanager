@@ -22,6 +22,7 @@ switch (process.env['NODE_ENV']) {
 delete argv["_"];
 
 async.eachOf(conf, function(param,index,callback) {
+
     console.log('Processing Key ' + index);
 
     var tmpKey;
@@ -41,10 +42,10 @@ async.eachOf(conf, function(param,index,callback) {
                 tmpKey=oldArgvK;
             }
             else
-                argvTmp="exit"; // to force exit due no use break
+                argvTmp="exit"; // to force exit due to no use break
 
         }
-        if(tmpObj[tmpKey])
+        if(_.property(tmpKey)(tmpObj))
             tmpObj[tmpKey] = argvTmp;
 
     }
@@ -56,5 +57,5 @@ async.eachOf(conf, function(param,index,callback) {
 
 
 
-exports.conf=conf;
-exports.config=config;
+exports=conf;
+//exports.config=config;
