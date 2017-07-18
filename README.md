@@ -1,51 +1,48 @@
 # propertiesmanager
-This module deals with the management of  configuration file of properties used for give a simple and consistent configuration
-interface to your application. The package lets you to define a set of parameters of three macro types **production**,**dev**,**test** 
+This module helps to easily manage all the configuration properties needed in a system, giving a simple and consistent configuration
+interface to your application. The properties must have a profile category, **production**,**dev** or **test**. 
 File properties are stored in folder config in a file named properties.json within your application home directory(.../config/properties.json).
-The package use **npm minimist** so your properties can be overridden and extended command line parameters.
+The package use **npm minimist**, so your properties can be overridden by command line parameters.
 
 [![NPM](https://nodei.co/npm/propertiesmanager.png?downloads=true&downloadRank=true&stars=true)![NPM](https://nodei.co/npm-dl/propertiesmanager.png?months=6&height=3)](https://nodei.co/npm/propertiesmanager/)
 
  * [Installation](#installation) 
- * [File properties creation](#creation)
- * [File properties population](#populate)
+ * [Property file creation](#creation)
+ * [Property file population](#populate)
  * [Using propertiesmanager](#using)
- * [Loading production or dev or test parameters](#load)
+ * [Loading a running profile](#load)
  * [Ovverride parameters from command line](#override)
  * [Examples](#examples)
     
 
 ## <a name="installation"></a>Installation
-To use **propertiesmanager** install it in your project by typing:
+To install **propertiesmanager**, type:
 
 ```shell
 $ npm install propertiesmanager
 ```
 
-## <a name="creation"></a>File properties creation
-Configuration file of properties must be created in a folder named config in the home directory of your application.
-The filename must be: default.json. 
-To create it type:
+## <a name="creation"></a>Property file creation
+Configuration files must be created in a folder named <code>config</code> in the home directory of your application.
+The filename must be named <code>default.json</code>. Type:
 ```shell
 $ mkdir config
 $ vi config/default.json
 ```
 
-## <a name="populate"></a>File properties population
-File properties is a JSON file and it must have a mandatory dictionary called "production".
-It contains all properties e configuration parameter of your application running in production or default mode.
-Other not mandatory dictionary should be called "dev" for development properties and "test" for testing properties.  
+## <a name="populate"></a>Property file population
+The file containing your properties is a JSON file having a mandatory dictionary called "production".
+It contains all the configuration parameters of your application running in production or default mode.
+Other dictionaries can be used, "dev" for development properties and "test" for testing properties.  
 
-Next an example of empty  mandatory file properties
+An example of empty property file:
 ```javascript
 {
-    "production":{  
-            "content":"...."   
-    }
+    "production":{}
 }
 ```
 
-Next an example of not empty  mandatory file properties
+An example of populated property file:
 ```javascript
 {
     "production":{
@@ -60,7 +57,7 @@ Next an example of not empty  mandatory file properties
 ```
 
 
-Next an example of properties file with env and test properties defined
+An example of property file with dev and test dictionaries defined:
 ```javascript
 {
     "production":{
@@ -90,9 +87,9 @@ Next an example of properties file with env and test properties defined
 
 
 
-## <a name="using"></a>Using propertiesmanager
+## <a name="using"></a>Usage
 
-### Include propertiesmanager
+### Including propertiesmanager
 
 Just require it like a simple package:
 
@@ -101,25 +98,17 @@ var propertiesmanager = require('propertiesmanager');
 ```
 
 ### Using propertiesmanager
-propertiesmanager return a dictionary containing the properties from file of properties.
-This properties can be overridden and extended by command line parameters.
-seeing that the file properties can have three different running configuration (production, dev, test),
-to load a particular configuration you can get it setting  NODE_ENV environment variable.
+propertiesmanager returns a dictionary containing all the properties from a configuration file.
+These properties can be overridden by command line parameters.
 ```javascript
-
-   var propertiesmanager = require('propertiesmanager').conf;
-   
    // print the loaded properties dictionary
    console.log(propertiesmanager);   
 
 ```
 
-
-
-## <a name="load"></a>Loading production or dev or test parameters
-File properties can have three different running configuration (production, dev, test),
-to load a particular configuration you can get it setting  NODE_ENV environment variable.
-If NODE_ENV is not defined or specified the default properties loaded are the **production**
+## <a name="load"></a>Loading a running profile
+The application using this package runs under one profile among three (production, dev, test), set by NODE_ENV environment variable.
+If NODE_ENV is not defined the default profile is **production**
 
 Running your app in default mode. **production** properties are loaded:
 ```shell
@@ -147,28 +136,25 @@ $ NODE_ENV=test npm start
 
 
 
-## <a name="override"></a>Ovverride loaded parameters from command line
-The package propertiesmanager use **npm minimist** so your properties stored in default.json can be 
-overridden and extended by command line parameters. To extend it you must 
-type in command line --ParamName=ParamValues like in the example bellow: 
-
-Override "properties_One" in dev mode(NODE_ENV=dev) properties from default.json :
+## <a name="override"></a>Override loaded parameters from command line
+The package propertiesmanager use **npm minimist**, so your properties stored in default.json can be 
+overridden by command line parameters. Just type in command line <code>--ParamName=ParamValue</code>, as in:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev npm start -- --properties_One="Override_TestOne"
 ```
 
-The first "--" after npm start must be used to indicate at npm that the next params must be passed to node bin/www,
-so if you run your application with  `node bin/www` the fist "--" should be not used as bellow:
+The first <code>--</code> after <code>npm start</code> means that the following params must be passed to <code>node bin/www</code>,
+so if you run your application directly calling  <code>node bin/www</code> the first <code>--</code> must be not used, as in:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev node bin/www --properties_One="Override_TestOne"
 ``` 
 
-To override parameters in a tree structure(overrun branches to reach leaves), use doted(".") syntax. For example:
- ```javascript
+To override parameters that are complex objects, use dotted (".") notation. For example:
+ ```shell
  
-  // We Want Override Obj_One
+  // We want to override Obj_One
  {
      "production":{
          "properties_One":"One",
@@ -179,29 +165,22 @@ To override parameters in a tree structure(overrun branches to reach leaves), us
          }    
      }     
  }
- ```
 
-To override "Obj_One" use doted syntax " --Objectproperties **.** Obj_One="Override_Obj_One" "like bellow :
-
-```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev node bin/www --Objectproperties.Obj_One="Override_Obj_One"
 ``` 
+For further information about passing parameter see `https://www.npmjs.com/package/minimist`
 
-
-For other information about passing parameter see `https://www.npmjs.com/package/minimist`
-
-## <a name="examples"></a>`Examples`
+## <a name="examples"></a>Examples
 
 ### File Properties creation
-From a shell go in your home project directory and type:
+From your home project directory type:
 ```shell
-$ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ mkdir config
 $ vi config/default.json
 ```
 
-Populate file properties contents like this:
+Write <code>default.json</code> property file:
 ```javascript
 {
     "production":{
@@ -228,8 +207,7 @@ Populate file properties contents like this:
     }
 }
 ``` 
-
-Code example that prints properties
+Now you can print all your properties:
 ```javascript
 
    var propertiesmanager = require('propertiesmanager').conf;
@@ -240,11 +218,11 @@ Code example that prints properties
 
 ```
 
-Running your app in default mode load production properties from default.json :
+Running your app in default mode, production properties are loaded:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ npm start
-########### Readed Properties ###########
+########### Read Properties ###########
 "production":{
           "properties_One":"One",
           "properties_Two":"Two",
@@ -255,7 +233,7 @@ $ npm start
       }     
 ```
 
-running your app in production mode(NODE_ENV=productions) is equivalent to run in default mode:
+Running your app in production mode <code>(NODE_ENV=production)</code> is equivalent to run in default mode:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=production npm start
@@ -270,8 +248,7 @@ $ NODE_ENV=production npm start
       }     
 ```
 
-
-running your app in dev mode(NODE_ENV=dev) load dev properties from default.json :
+Running your app in dev mode <code>(NODE_ENV=dev)</code>, dev properties are loaded:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev npm start
@@ -285,7 +262,7 @@ $ NODE_ENV=dev npm start
     }
 ```
 
-running your app in test mode(NODE_ENV=test) load test properties from default.json :
+Running your app in test mode <code>(NODE_ENV=test)</code>, test properties are loaded:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=test npm start
@@ -300,7 +277,7 @@ $ NODE_ENV=test npm start
 ```
 
 
-Override some test mode(NODE_ENV=test) properties from default.json :
+Overriding some test mode <code>(NODE_ENV=test)</code> properties:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev npm start -- --properties_One="Override_TestOne"
@@ -343,4 +320,9 @@ SOFTWARE.
 
 Author
 ------
-Alessandro Romanino ([a.romanino@gmail.com](mailto:a.romanino@gmail.com))
+Alessandro Romanino ([a.romanino@gmail.com](mailto:a.romanino@gmail.com))<br>
+Guido Porruvecchio ([guido.porruvecchio@gmail.com](mailto:guido.porruvecchio@gmail.com))
+
+Contributors
+------
+CRS4 Microservice Core Team ([cmc.smartenv@crs4.it](mailto:cmc.smartenv@crs4.it))
