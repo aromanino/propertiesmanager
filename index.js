@@ -21,41 +21,44 @@ switch (process.env['NODE_ENV']) {
 
 delete argv["_"];
 
+
 async.eachOf(conf, function(param,index,callback) {
 
     console.log('Processing Key ' + index);
 
-    var tmpKey;
-    var tmpObj;
-    var argvTmp;
-    var oldArgvK;
-
     if(argv[index]) {
-        tmpObj=conf;
-        tmpKey=index;
-        argvTmp=argv[index];
-        while((typeof (argvTmp)=="object")){
-            oldArgvK=_.keys(argvTmp)[0];
-            argvTmp=argvTmp[oldArgvK];
-            if(tmpObj[tmpKey]) {
-                tmpObj = tmpObj[tmpKey];
-                tmpKey=oldArgvK;
-            }
-            else
-                argvTmp="exit"; // to force exit due to no use break
-
-        }
-        if(_.has(tmpObj,tmpKey))
-            tmpObj[tmpKey] = argvTmp;
-
+        setValueAndKey(argv[index], conf, index, function (err) {
+            callback();
+        });
     }
-    callback();
+
 },function(err){
     config[key]=conf;
 });
 
 
+function setValueAndKey(argvTmp, currentObj, currentKey, callbackEnd){
+    if((typeof (argvTmp)!="object")){
+        if(_.has(currentObj,currentKey))
+            currentObj[currentKey] = argvTmp;
+        callbackEnd(null);
+    }else {
+        var keys=_.keys(argvTmp);
+        async.eachOf(keys, function(value,key,callback) {
+            if(currentObj[currentKey]) {
+                setValueAndKey(argvTmp[value], currentObj[currentKey], value, function (err) {
+                    callback()
+                });
+            }else{
+                callback();
+            }
+
+        },function (err) {
+            callbackEnd(null);
+        });
+    }
+
+}
 
 
 exports.conf=conf;
-//exports.config=config;
