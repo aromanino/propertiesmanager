@@ -10,7 +10,7 @@ The package use **npm minimist**, so your properties can be overridden by comman
  * [Property file creation](#creation)
  * [Property file population](#populate)
  * [Using propertiesmanager](#using)
- * [Using propertiesmanager in node_module packages](#usingpackage)
+ * [Using propertiesmanager in development npm package](#usingpackage)
  * [Loading a running profile](#load)
  * [Ovverride parameters from command line](#override)
  * [Examples](#examples)
