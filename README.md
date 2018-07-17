@@ -10,6 +10,7 @@ The package use **npm minimist**, so your properties can be overridden by comman
  * [Property file creation](#creation)
  * [Property file population](#populate)
  * [Using propertiesmanager](#using)
+ * [Using propertiesmanager in node_module packages](#usingpackage)
  * [Loading a running profile](#load)
  * [Ovverride parameters from command line](#override)
  * [Examples](#examples)
@@ -94,7 +95,7 @@ An example of property file with dev and test dictionaries defined:
 Just require it like a simple package:
 
 ```javascript
-var propertiesmanager = require('propertiesmanager');
+var propertiesmanager = require('propertiesmanager').conf;
 ```
 
 ### Using propertiesmanager
@@ -105,6 +106,37 @@ These properties can be overridden by command line parameters.
    console.log(propertiesmanager);   
 
 ```
+
+
+# <a name="usingpackage"></a>Usage in nodule_module packages 
+
+If you use this package to develop other node_modules, then add `"install": "npm install propertiesmanager"` in the 
+`scripts` tag in your package.json as below: 
+
+ ```shell
+ 
+  // yur package.json
+ {
+    ......
+    ......
+    "scripts": {
+        .......
+        "install": "npm install propertiesmanager"
+      },
+    ......
+    ......
+ }
+
+
+```
+
+You need to do this because propertiesmanager looks for the property file (config/default.json) in a folder located two
+levels up the node_modules folder, so propertiesmanager must be installed in the node_modules folder of the package 
+that uses it as a dependence
+ 
+
+
+
 
 ## <a name="load"></a>Loading a running profile
 The application using this package runs under one profile among three (production, dev, test), set by NODE_ENV environment variable.
