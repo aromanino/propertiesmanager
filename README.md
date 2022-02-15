@@ -3,6 +3,7 @@ This module helps to easily manage all the configuration properties needed in a 
 interface to your application. The properties must have a profile category, **production**,**dev** or **test**. 
 File properties are stored in folder config in a file named properties.json within your application home directory(.../config/properties.json).
 The package use **npm minimist**, so your properties can be overridden by command line parameters.
+The package is compliant to JSON5 so you can add single and multi line comments like // or /% %/ in your JSON file   
 
 [![NPM](https://nodei.co/npm/propertiesmanager.png?downloads=true&downloadRank=true&stars=true)![NPM](https://nodei.co/npm-dl/propertiesmanager.png?months=6&height=3)](https://nodei.co/npm/propertiesmanager/)
 
