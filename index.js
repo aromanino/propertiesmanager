@@ -1,4 +1,6 @@
-var config = require("../.././config/default.json");
+var requireJSON5 = require('require-json5');
+var config = requireJSON5("../.././config/default.json");
+
 var async=require('async');
 var _=require('underscore');
 var argv = require('minimist')(process.argv.slice(2));
