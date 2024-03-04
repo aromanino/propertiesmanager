@@ -353,9 +353,9 @@ SOFTWARE.
 
 Author
 ------
-Alessandro Romanino ([a.romanino@gmail.com](mailto:a.romanino@gmail.com))<br>
-Guido Porruvecchio ([guido.porruvecchio@gmail.com](mailto:guido.porruvecchio@gmail.com))
+CRS4 Microservice Core Team ([cmc.smartenv@crs4.it](mailto:cmc.smartenv@crs4.it))
 
 Contributors
 ------
-CRS4 Microservice Core Team ([cmc.smartenv@crs4.it](mailto:cmc.smartenv@crs4.it))
+Alessandro Romanino ([a.romanino@gmail.com](mailto:a.romanino@gmail.com))<br>
+Guido Porruvecchio ([guido.porruvecchio@gmail.com](mailto:guido.porruvecchio@gmail.com))
