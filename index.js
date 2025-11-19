@@ -7,7 +7,7 @@
  * - Environment variable overrides (PM_* prefix)
  * - Multi-file configuration composition (default.json, local.json, secrets.json)
  * - Configuration hot reload with event notification
- * - Configurable logging levels (debug/info/warn/error)
+ * - Configurable logging with LOG_LEVEL environment variable (debug/info/warn/error)
  * - JSON5 format support (comments, trailing commas, etc.)
  * - Prototype pollution protection
  * - Type conversion for null/undefined values
@@ -17,7 +17,6 @@
  */
 
 var requireJSON5 = require('require-json5');
-var debug = require('debug')('propertiesmanager');
 var fs = require('fs');
 var EventEmitter = require('events');
 var configEvents = new EventEmitter();
@@ -69,10 +68,11 @@ var LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 function log(level, ...args) {
     const levels = ['error', 'warn', 'info', 'debug'];
     if (levels.indexOf(level) <= levels.indexOf(LOG_LEVEL)) {
-        if (level === 'error') console.error(...args);
-        else if (level === 'warn') console.warn(...args);
-        else if (level === 'info') console.info(...args);
-        else debug(...args);
+        const prefix = 'propertiesmanager';
+        if (level === 'error') console.error(prefix, ...args);
+        else if (level === 'warn') console.warn(prefix, ...args);
+        else if (level === 'info') console.info(prefix, ...args);
+        else console.log(prefix, ...args);
     }
 }
 

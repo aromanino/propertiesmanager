@@ -11,8 +11,7 @@ A powerful and flexible Node.js configuration management module with support for
 - 🔄 **Hot reload** - Automatically reload configuration when files change
 - 🔒 **Security hardened** - Protection against prototype pollution and property injection
 - 📝 **JSON5 support** - Use comments, trailing commas in your config files
-- 📊 **Configurable logging** - Control verbosity with log levels
-- 🔍 **Debug support** - Built-in debug logging with the debug module
+- 📊 **Configurable logging** - Control verbosity with LOG_LEVEL environment variable
 - 📘 **TypeScript support** - Full TypeScript definitions included
 
 This module helps to easily manage all the configuration properties needed in a system, giving a simple and consistent configuration interface to your application. The properties must have a profile category: **production**, **dev**, or **test**. Configuration files are stored in the `config` folder in your application home directory (`config/default.json`).
@@ -316,7 +315,7 @@ console.log(propertiesmanager.conf);
 
 ## Debugging and Logging
 
-The package uses the [debug](https://www.npmjs.com/package/debug) module for internal logging with configurable verbosity levels.
+The package uses the `LOG_LEVEL` environment variable to control logging verbosity. This affects all internal messages from propertiesmanager.
 
 ### Log levels
 
@@ -326,16 +325,14 @@ Available levels (from most to least verbose): `debug`, `info`, `warn`, `error`
 
 ### Configuration
 
-The package provides two independent logging mechanisms:
-
-**1. LOG_LEVEL** - Controls application log verbosity (error/warn/info/debug):
+Set via `LOG_LEVEL` environment variable:
 
 ```shell
-# Default: info level (shows info, warn, error)
-$ node app.js
-
-# Debug level: show all logs including debug messages
+# Debug mode: show all internal messages (key processing, config loading, watcher status)
 $ LOG_LEVEL=debug node app.js
+
+# Default: info level (shows config loaded, hot-reload events)
+$ LOG_LEVEL=info node app.js
 
 # Production: only errors and warnings
 $ LOG_LEVEL=warn node app.js
@@ -344,26 +341,17 @@ $ LOG_LEVEL=warn node app.js
 $ LOG_LEVEL=error node app.js
 ```
 
-**2. DEBUG** - Enables internal propertiesmanager diagnostic messages:
-
-```shell
-# Show internal module diagnostics (what keys are processed, when config loads, etc.)
-$ DEBUG=propertiesmanager node app.js
-
-# Combine both for maximum verbosity during development
-$ DEBUG=propertiesmanager LOG_LEVEL=debug node app.js
-```
-
 **Note:** `LOG_LEVEL` must be set as an environment variable and cannot be configured in the config file.
 
 ### Debug output example
 
-When `DEBUG=propertiesmanager` is set, you'll see internal diagnostic messages:
+When `LOG_LEVEL=debug` is set, you'll see detailed internal messages:
 
 ```
-propertiesmanager Processing key: appName +0ms
-propertiesmanager Processing key: server +2ms
-propertiesmanager Configuration loaded successfully for environment: production +5ms
+propertiesmanager Processing key: appName
+propertiesmanager Processing key: server
+propertiesmanager Config file watcher disabled (set ENABLE_CONFIG_WATCH=true to enable)
+propertiesmanager Configuration loaded successfully for environment: production
 ```
 
 These messages show the internal workings of the configuration loading process and are useful for troubleshooting.
