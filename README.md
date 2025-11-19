@@ -326,21 +326,39 @@ Available levels (from most to least verbose): `debug`, `info`, `warn`, `error`
 
 ### Configuration
 
-Set via environment variable:
+The package provides two independent logging mechanisms:
+
+**1. LOG_LEVEL** - Controls application log verbosity (error/warn/info/debug):
 
 ```shell
-# Show internal debug messages
-$ DEBUG=propertiesmanager LOG_LEVEL=debug node app.js
+# Default: info level (shows info, warn, error)
+$ node app.js
+
+# Debug level: show all logs including debug messages
+$ LOG_LEVEL=debug node app.js
 
 # Production: only errors and warnings
 $ LOG_LEVEL=warn node app.js
+
+# Only critical errors
+$ LOG_LEVEL=error node app.js
+```
+
+**2. DEBUG** - Enables internal propertiesmanager diagnostic messages:
+
+```shell
+# Show internal module diagnostics (what keys are processed, when config loads, etc.)
+$ DEBUG=propertiesmanager node app.js
+
+# Combine both for maximum verbosity during development
+$ DEBUG=propertiesmanager LOG_LEVEL=debug node app.js
 ```
 
 **Note:** `LOG_LEVEL` must be set as an environment variable and cannot be configured in the config file.
 
 ### Debug output example
 
-When `DEBUG=propertiesmanager` is set, you'll see:
+When `DEBUG=propertiesmanager` is set, you'll see internal diagnostic messages:
 
 ```
 propertiesmanager Processing key: appName +0ms
@@ -348,7 +366,7 @@ propertiesmanager Processing key: server +2ms
 propertiesmanager Configuration loaded successfully for environment: production +5ms
 ```
 
-Useful for troubleshooting configuration loading or tracking which properties are being overridden.
+These messages show the internal workings of the configuration loading process and are useful for troubleshooting.
 
 ## TypeScript Support
 
