@@ -159,8 +159,7 @@ async.eachOf(conf, function(param, index, callback) {
     
     // Hot reload: watch config file and reload on change (disabled by default, enable via ENABLE_CONFIG_WATCH env var)
     var configPath = "config/default.json";
-    var enableWatch = process.env.ENABLE_CONFIG_WATCH === 'true' || 
-                      (config && config.ENABLE_CONFIG_WATCH === true);
+    var enableWatch = process.env.ENABLE_CONFIG_WATCH === 'true';
     
     if (enableWatch && fs.existsSync(configPath)) {
         fs.watch(configPath, { persistent: false }, function (eventType) {

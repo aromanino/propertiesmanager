@@ -23,7 +23,6 @@ This module helps to easily manage all the configuration properties needed in a 
  * [Property file creation](#property-file-creation)
  * [Property file population](#property-file-population)
  * [Using propertiesmanager](#usage)
- * [Using propertiesmanager in development npm package](#usage-in-node_module-packages)
  * [Loading a running profile](#loading-a-running-profile)
  * [Override parameters from command line](#override-loaded-parameters-from-command-line)
  * [Override parameters from environment variables](#override-parameters-from-environment-variables)
@@ -123,31 +122,6 @@ These properties can be overridden by command line parameters.
 console.log(propertiesmanager);   
 
 ```
-
-## Usage in node_module packages 
-
-If you use this package to develop other node_modules, then add `"install": "npm install propertiesmanager"` in the 
-`scripts` tag in your package.json as below: 
-
- ```json
-// Example of your package.json file
-{
-    ......
-    ......
-    "scripts": {
-        .......
-        "install": "npm install propertiesmanager"
-      },
-    ......
-    ......
- }
-
-
-```
-
-You need to do this because propertiesmanager looks for the property file (config/default.json) in a folder located two
-levels up the node_modules folder, so propertiesmanager must be installed in the node_modules folder of the package 
-that uses it as a dependence
 
 ## Loading a running profile
 The application using this package runs under one profile among three (production, dev, test), set by NODE_ENV environment variable.
@@ -303,20 +277,13 @@ The package can watch `config/default.json` for changes and automatically reload
 
 ### Enabling hot reload
 
-Enable via environment variable or configuration file:
+Enable via environment variable:
 
 ```shell
-# Enable via environment variable
 $ ENABLE_CONFIG_WATCH=true node app.js
-
-# Or in config/default.json
-{
-    "production": {
-        "ENABLE_CONFIG_WATCH": true,
-        "appName": "MyApp"
-    }
-}
 ```
+
+**Note:** This must be set as an environment variable (not in config file) to avoid circular dependency issues.
 
 ### Usage
 
@@ -345,24 +312,7 @@ console.log(propertiesmanager.conf);
 
 **Note:** Hot reload only watches `config/default.json`. Changes to `local.json` or `secrets.json` require an application restart.
 
-### Disabling hot reload
-
-Hot reload can be disabled via environment variable or configuration:
-
-```shell
-# Disable via environment variable
-$ DISABLE_CONFIG_WATCH=true node app.js
-
-# Or in config/default.json
-{
-    "production": {
-        "DISABLE_CONFIG_WATCH": true,
-        "appName": "MyApp"
-    }
-}
-```
-
-This is useful in production environments where configuration changes should only happen through controlled deployments.
+**Production use:** Hot reload is disabled by default, making it safe for production. Only enable it in development environments where you need automatic configuration updates.
 
 ## Debugging and Logging
 
@@ -506,7 +456,7 @@ $ node app.js --configPath=../../etc/passwd  # ✅ Treated as safe string value
 SQL injection, XSS, and other injection patterns are safely handled as regular string values without special interpretation.
 
 ### Comprehensive Test Coverage
-All security features are validated through 111+ automated tests, including specific vulnerability tests in `test/security-integrity.test.js`.
+All security features are validated through 113 automated tests, including specific vulnerability tests in `test/security-integrity.test.js`.
 
 ### Error Handling
 The package provides clear error messages when configuration files are missing or invalid:
@@ -628,7 +578,7 @@ Overriding some test mode `(NODE_ENV=test)` properties:
 ```shell
 $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=test npm start -- --properties_One="Override_TestOne"
-########### Readed Properties ###########
+########### Read Properties ###########
  "test":{
        "properties_One":"Override_TestOne",
        "Objectproperties":{
