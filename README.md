@@ -326,7 +326,7 @@ Available levels (from most to least verbose): `debug`, `info`, `warn`, `error`
 
 ### Configuration
 
-Set via environment variable (recommended) or config file:
+Set via environment variable:
 
 ```shell
 # Show internal debug messages
@@ -334,15 +334,9 @@ $ DEBUG=propertiesmanager LOG_LEVEL=debug node app.js
 
 # Production: only errors and warnings
 $ LOG_LEVEL=warn node app.js
-
-# In config/default.json
-{
-    "production": {
-        "LOG_LEVEL": "info",
-        "appName": "MyApp"
-    }
-}
 ```
+
+**Note:** `LOG_LEVEL` must be set as an environment variable and cannot be configured in the config file.
 
 ### Debug output example
 
@@ -456,7 +450,7 @@ $ node app.js --configPath=../../etc/passwd  # ✅ Treated as safe string value
 SQL injection, XSS, and other injection patterns are safely handled as regular string values without special interpretation.
 
 ### Comprehensive Test Coverage
-All security features are validated through 113 automated tests, including specific vulnerability tests in `test/security-integrity.test.js`.
+All security features are validated through 119 automated tests, including specific vulnerability tests in `test/security-integrity.test.js` and logging configuration tests in `test/logging.test.js`.
 
 ### Error Handling
 The package provides clear error messages when configuration files are missing or invalid:

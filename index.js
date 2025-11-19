@@ -65,7 +65,7 @@ try {
 }
 
 // Logging level support (debug/info/warn/error)
-var LOG_LEVEL = process.env.LOG_LEVEL || (config.LOG_LEVEL) || 'info';
+var LOG_LEVEL = process.env.LOG_LEVEL || 'info';
 function log(level, ...args) {
     const levels = ['error', 'warn', 'info', 'debug'];
     if (levels.indexOf(level) <= levels.indexOf(LOG_LEVEL)) {
