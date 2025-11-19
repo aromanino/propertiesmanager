@@ -1,0 +1,54 @@
+{
+  "production": {
+    "appName": "propertiesmanager",
+    "version": "3.0.4",
+    "server": {
+      "host": "localhost",
+      "port": 3000
+    },
+    "database": {
+      "host": "db.production.com",
+      "port": 5432,
+      "name": "prod_db"
+    },
+    "features": {
+      "enableCache": true,
+      "maxConnections": 100
+    }
+  },
+  "dev": {
+    "appName": "propertiesmanager-dev",
+    "version": "3.0.4",
+    "server": {
+      "host": "localhost",
+      "port": 3001
+    },
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "dev_db"
+    },
+    "features": {
+      "enableCache": false,
+      "maxConnections": 10,
+      "debugMode": true
+    }
+  },
+  "test": {
+    "appName": "propertiesmanager-test",
+    "version": "3.0.4",
+    "server": {
+      "host": "localhost",
+      "port": 3002
+    },
+    "database": {
+      "host": "localhost",
+      "port": 5432,
+      "name": "test_db"
+    },
+    "features": {
+      "enableCache": false,
+      "maxConnections": 5
+    }
+  }
+}
