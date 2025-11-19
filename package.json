@@ -2,19 +2,21 @@
   "name": "propertiesmanager",
   "version": "3.0.4",
   "dependencies": {
-    "async": "^2.1.2",
+    "async": "^3.2.6",
     "debug": "^4.4.3",
-    "express": "^5.1.0",
-    "minimist": "^1.2.0",
-    "morgan": "^1.9.1",
-    "require-json5": "^1.1.0",
-    "serve-favicon": "^2.5.1",
+    "minimist": "^1.2.8",
+    "require-json5": "^1.3.0",
     "underscore": "^1.8.3"
   },
-  "description": "This module deals with the management of  configuration file of properties used for give a simple and consistent configuration interface to your application",
+  "description": "Powerful Node.js configuration management with multi-environment support, CLI/env overrides, multi-file composition, hot reload, and security features",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
-    "test": "npm test"
+    "test": "mocha --require test/setup.js test/**/*.test.js"
+  },
+  "devDependencies": {
+    "chai": "^6.2.1",
+    "mocha": "^11.0.0"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,14 @@
     "configuration",
     "property",
     "properties",
+    "environment",
+    "hot-reload",
+    "multi-file",
+    "cli-override",
+    "env-variables",
+    "json5",
+    "security",
+    "typescript",
     "argument",
     "parser"
   ],
