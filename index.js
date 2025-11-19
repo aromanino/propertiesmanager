@@ -157,9 +157,12 @@ async.eachOf(conf, function(param, index, callback) {
     }
     config[key] = conf;
     
-    // Hot reload: watch config file and reload on change
+    // Hot reload: watch config file and reload on change (disabled by default, enable via ENABLE_CONFIG_WATCH env var)
     var configPath = "config/default.json";
-    if (fs.existsSync(configPath)) {
+    var enableWatch = process.env.ENABLE_CONFIG_WATCH === 'true' || 
+                      (config && config.ENABLE_CONFIG_WATCH === true);
+    
+    if (enableWatch && fs.existsSync(configPath)) {
         fs.watch(configPath, { persistent: false }, function (eventType) {
             if (eventType === 'change') {
                 try {
@@ -173,6 +176,9 @@ async.eachOf(conf, function(param, index, callback) {
                 }
             }
         });
+        log('debug', 'Config file watcher enabled for:', configPath);
+    } else if (!enableWatch) {
+        log('debug', 'Config file watcher disabled (set ENABLE_CONFIG_WATCH=true to enable)');
     }
     
     log('info', 'Configuration loaded successfully for environment:', key);

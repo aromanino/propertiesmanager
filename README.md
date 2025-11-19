@@ -299,7 +299,24 @@ The package supports loading and merging multiple configuration files for better
 
 ## Configuration hot reload
 
-The package automatically watches `config/default.json` for changes and reloads the configuration when the file is modified. This is useful during development for quick configuration updates without restarting your application.
+The package can watch `config/default.json` for changes and automatically reload the configuration when the file is modified. **Hot reload is disabled by default** and must be explicitly enabled.
+
+### Enabling hot reload
+
+Enable via environment variable or configuration file:
+
+```shell
+# Enable via environment variable
+$ ENABLE_CONFIG_WATCH=true node app.js
+
+# Or in config/default.json
+{
+    "production": {
+        "ENABLE_CONFIG_WATCH": true,
+        "appName": "MyApp"
+    }
+}
+```
 
 ### Usage
 
@@ -330,7 +347,22 @@ console.log(propertiesmanager.conf);
 
 ### Disabling hot reload
 
-Hot reload is always enabled by default. If you need to disable file watching (e.g., in production), you can monitor the file manually or use process managers like PM2 that handle restarts.
+Hot reload can be disabled via environment variable or configuration:
+
+```shell
+# Disable via environment variable
+$ DISABLE_CONFIG_WATCH=true node app.js
+
+# Or in config/default.json
+{
+    "production": {
+        "DISABLE_CONFIG_WATCH": true,
+        "appName": "MyApp"
+    }
+}
+```
+
+This is useful in production environments where configuration changes should only happen through controlled deployments.
 
 ## Debugging and Logging
 
