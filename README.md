@@ -202,6 +202,66 @@ $ cd "YOUR_APPLICATION_HOME_DIRECTORY"
 $ NODE_ENV=dev node bin/www --Objectproperties.Obj_One="Override_Obj_One"
 ``` 
 
+### Overriding values inside arrays
+You can override a value inside an array using dotted notation with the array index.
+
+Example configuration in `config/default.json`:
+```javascript
+{
+    "production": {
+        "features": {
+            "arrayJson": [
+                { "uno": 1, "due": 2 },
+                { "uno": 1, "due": 3 }
+            ]
+        }
+    }
+}
+```
+
+To change `features.arrayJson[1].due` from `3` to `4`:
+```shell
+$ cd "YOUR_APPLICATION_HOME_DIRECTORY"
+$ node bin/www --features.arrayJson.1.due=4
+```
+
+Result after override:
+```javascript
+features.arrayJson[1].due === 4
+```
+
+### Numeric keys in objects (not arrays)
+If a node is an object (not an array), numeric segments are treated as object keys.
+
+Example configuration:
+```javascript
+{
+    "production": {
+        "NotArrayfeatures": {
+            "NotArrayarrayJson": {
+                "1": 0
+            }
+        }
+    }
+}
+```
+
+To change key `"1"` from `0` to `uno`:
+```shell
+$ cd "YOUR_APPLICATION_HOME_DIRECTORY"
+$ node bin/www --NotArrayfeatures.NotArrayarrayJson.1=uno
+```
+
+Result after override:
+```javascript
+NotArrayfeatures.NotArrayarrayJson["1"] === "uno"
+```
+
+Notes:
+- Arrays: `path.1.value` means index `1`.
+- Objects: `path.1.value` means key `"1"`.
+- Overrides only update existing paths/keys; new properties are not injected.
+
 For further information about minimist syntax, see the [minimist documentation](https://www.npmjs.com/package/minimist).
 
 ## Override parameters from environment variables

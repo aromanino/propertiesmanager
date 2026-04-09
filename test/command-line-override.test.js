@@ -96,4 +96,16 @@ console.log(JSON.stringify(propertiesmanager));
         const config = await runNodeWithArgs(['--nonExistentProperty=value']);
         expect(config).to.not.have.property('nonExistentProperty');
     });
+
+    it('should override a value inside an array of objects using dot notation index', async function() {
+        const config = await runNodeWithArgs(['--features.arrayJson.1.due=4']);
+        expect(config.features.arrayJson[1].due).to.equal(4);
+        expect(config.features.arrayJson[0].due).to.equal(2);
+    });
+
+    it('should override numeric key in a non-array object using dot notation', async function() {
+        const config = await runNodeWithArgs(['--NotArrayfeatures.NotArrayarrayJson.1=uno']);
+        expect(config.NotArrayfeatures.NotArrayarrayJson['1']).to.equal('uno');
+        expect(config.NotArrayfeatures.maxConnections).to.equal(100);
+    });
 });

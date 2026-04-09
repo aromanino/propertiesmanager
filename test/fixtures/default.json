@@ -13,7 +13,18 @@
     },
     "features": {
       "enableCache": true,
-      "maxConnections": 100
+      "maxConnections": 100,
+      "arrayJson": [
+        { "uno": 1, "due": 2 },
+        { "uno": 1, "due": 3 }
+      ]
+    },
+    "NotArrayfeatures": {
+      "enableCache": true,
+      "maxConnections": 100,
+      "NotArrayarrayJson": {
+        "1": 0
+      }
     }
   },
   "dev": {
